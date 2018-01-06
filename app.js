@@ -1,29 +1,28 @@
-var express = require('express');
-var graphqlHTTP = require('express-graphql');
+var express = require('express')
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express')
 var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-const schema = require('./routes/schema');
+var index = require('./routes/index')
+var users = require('./routes/users')
+
+const schema = require('./schema/index')
+
+
 
 var app = express();
+
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+
+app.use('/graphiql', graphiqlExpress({
+  endpointURL: '/graphql',
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use('/graphql', graphqlHTTP({
-  graphiql: true,
-  schema,
-  pretty: true
-}));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
