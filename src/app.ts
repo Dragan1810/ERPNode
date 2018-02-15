@@ -11,12 +11,11 @@ import * as path from "path";
 import * as mongoose from "mongoose";
 import * as passport from "passport";
 import * as expressValidator from "express-validator";
-import * as bluebird from "bluebird";
 
 const MongoStore = mongo(session);
 
 // Load environment variables from .env file, where API keys and passwords are configured
-dotenv.config({ path: ".env.example" });
+dotenv.config({ path: ".env" });
 
 // Controllers (route handlers)
 import * as homeController from "./controllers/home";
@@ -26,14 +25,13 @@ import * as contactController from "./controllers/contact";
 
 
 // API keys and Passport configuration
-import * as passportConfig from "./config/passport";
 
 // Create Express server
 const app = express();
 
 // Connect to MongoDB
 const mongoUrl = process.env.MONGOLAB_URI;
-(<any>mongoose).Promise = bluebird;
+(<any>mongoose).Promise = global.Promise;
 mongoose.connect(mongoUrl, {useMongoClient: true}).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
@@ -59,8 +57,6 @@ app.use(session({
     autoReconnect: true
   })
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(flash());
 app.use(lusca.xframe("SAMEORIGIN"));
 app.use(lusca.xssProtection(true));
@@ -99,24 +95,19 @@ app.get("/signup", userController.getSignup);
 app.post("/signup", userController.postSignup);
 app.get("/contact", contactController.getContact);
 app.post("/contact", contactController.postContact);
-app.get("/account", passportConfig.isAuthenticated, userController.getAccount);
-app.post("/account/profile", passportConfig.isAuthenticated, userController.postUpdateProfile);
-app.post("/account/password", passportConfig.isAuthenticated, userController.postUpdatePassword);
-app.post("/account/delete", passportConfig.isAuthenticated, userController.postDeleteAccount);
-app.get("/account/unlink/:provider", passportConfig.isAuthenticated, userController.getOauthUnlink);
+app.get("/account", userController.getAccount);
+app.post("/account/profile", userController.postUpdateProfile);
+app.post("/account/password", userController.postUpdatePassword);
+app.post("/account/delete", userController.postDeleteAccount);
+app.get("/account/unlink/:provider", userController.getOauthUnlink);
 
 /**
  * API examples routes.
  */
 app.get("/api", apiController.getApi);
-app.get("/api/facebook", passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
 
 /**
  * OAuth authentication routes. (Sign in)
  */
-app.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }));
-app.get("/auth/facebook/callback", passport.authenticate("facebook", { failureRedirect: "/login" }), (req, res) => {
-  res.redirect(req.session.returnTo || "/");
-});
 
 module.exports = app;
