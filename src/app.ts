@@ -1,5 +1,5 @@
 import * as express from "express";
-import * as compression from "compression";  // compresses requests
+import * as compression from "compression";  // compresses requests ?
 import * as bodyParser from "body-parser";
 import * as logger from "morgan";
 import * as lusca from "lusca";

@@ -41,13 +41,4 @@ export let postContact = (req: Request, res: Response) => {
     subject: "Contact Form",
     text: req.body.message
   };
-
-  transporter.sendMail(mailOptions, (err) => {
-    if (err) {
-      req.flash("errors", { msg: err.message });
-      return res.redirect("/contact");
-    }
-    req.flash("success", { msg: "Email has been sent successfully!" });
-    res.redirect("/contact");
-  });
 };
