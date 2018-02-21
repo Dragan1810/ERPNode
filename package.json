@@ -8,10 +8,10 @@
   },
   "author": "Dragan Novakovic",
   "license": "MIT",
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
+    "awesome-typescript-loader": "^3.4.1",
+    "source-map-loader": "^0.2.3"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
