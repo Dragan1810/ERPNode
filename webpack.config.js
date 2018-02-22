@@ -1,18 +1,32 @@
+const path = require('path')
+const webpack = require('webpack');
+
 module.exports = {
-    entry: "./src/index.ts",
+    entry: "./src/app.ts",
     output: {
-        filename: "./dist/bundle.js",
+        path: path.resolve(__dirname, 'dist'),
+        filename: "bundle.js",
+        publicPath: '/dist'
     },
     devtool: "source-map",
     resolve: {
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+        extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
     },
     module: {
-        loaders: [
-            { test: /\.tsx?$/, loader: "awesome-typescript-loader" }
-        ],
-        preLoaders: [
-            { test: /\.js$/, loader: "source-map-loader" }
-        ]
+      rules: [
+          {
+            test: /\.css$/,
+            use: [
+                'style-loader',
+                'css-loader'
+            ],
+            exclude: /node_modules/
+          },
+          {
+            test: /\.tsx?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/
+        }
+      ]
     }
 }
