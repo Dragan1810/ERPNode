@@ -1,5 +1,6 @@
 import * as express from 'express'
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
+import { default as User } from '../models/UserModel'
 
 export const Login = (req:Request, res:Response) => {
     res.sendFile('index.html', {
@@ -7,8 +8,15 @@ export const Login = (req:Request, res:Response) => {
     })
 }
 
-export const Registar = (req:Request, res:Response) => {
+export const Register = (req:Request, res:Response) => {
     res.sendFile('register.html', {
         root: 'client'
     })
+}
+export const PostRegister = async (req:Request, res:Response, next:NextFunction) => {
+    const user = new User({
+        email: req.body.email,
+        password: req.body.passport
+    })
+    await user.save()
 }

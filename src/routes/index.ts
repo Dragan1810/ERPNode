@@ -5,7 +5,7 @@ import * as UserController from '../controllers/userController'
 const router:Router = express.Router()
 
 router.get('/', UserController.Login)
-
-router.get('/register', UserController.Registar)
+router.get('/register', UserController.Register)
+router.post('/register', UserController.PostRegister)
 
 export default router
