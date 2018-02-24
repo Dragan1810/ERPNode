@@ -5,3 +5,4 @@ Node/TypeScript Boilerplate
 * Dodati MongoDB       
 * Passport Validacija       
 * Oauth FB
+* Sessije
