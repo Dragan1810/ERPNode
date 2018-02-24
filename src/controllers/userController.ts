@@ -16,7 +16,8 @@ export const Register = (req:Request, res:Response) => {
 export const PostRegister = async (req:Request, res:Response, next:NextFunction) => {
     const user = new User({
         email: req.body.email,
-        password: req.body.passport
+        password: req.body.password
     })
     await user.save()
+    next()
 }
