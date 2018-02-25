@@ -31,5 +31,4 @@ export const PostRegister = async (req:Request, res:Response, next:NextFunction)
         password: req.body.password
     })
     user.save()
-    next()
 }
