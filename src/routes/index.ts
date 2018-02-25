@@ -6,6 +6,8 @@ const router:Router = express.Router()
 
 router.get('/', UserController.Login)
 router.get('/register', UserController.Register)
-router.post('/register', UserController.PostRegister)
+router.post('/register',
+    UserController.ValidateRegister,
+    UserController.PostRegister )
 
 export default router

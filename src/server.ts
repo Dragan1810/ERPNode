@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser'
 import * as logger from 'morgan'
 import * as dotenv from 'dotenv'
 import * as mongoose from 'mongoose'
+import * as expressValidator from 'express-validator'
 import { Request, Response, Application } from 'express'
 import routes from './routes/index'
 
@@ -22,9 +23,10 @@ mongoose.connect('mongodb://127.0.0.1/node-boilerplate')
   });
 
 app.use(logger('dev'))
-app.use(express.static(path.join(__dirname, '../client')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, '../client')))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(expressValidator())
 app.use('/', routes)
 
 app.listen(3000, () => console.log('PORT 3000! RUNING!'))

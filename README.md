@@ -2,7 +2,9 @@
 Node/TypeScript Boilerplate
 
 ## To-Do:
-* Dodati MongoDB       
+* validacija
+* lusca
+* cookie & JWT    
 * Passport Validacija       
 * Oauth FB
 * Sessije
