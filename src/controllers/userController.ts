@@ -30,5 +30,9 @@ export const PostRegister = async (req:Request, res:Response, next:NextFunction)
         email: req.body.email,
         password: req.body.password
     })
-    user.save()
+    User.findOne({ email: req.body.email })
+
+    user.save(err => {
+        if(err) return
+    })
 }
