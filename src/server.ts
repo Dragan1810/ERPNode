@@ -32,6 +32,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(expressValidator())
+// dokumentacija za sessije
 app.use(session({
   resave: true,
   saveUninitialized: true,
@@ -40,6 +41,9 @@ app.use(session({
     url: "mongodb://127.0.0.1/node-boilerplate",
     autoReconnect: true
   })
+
+//app.use(passport.initialize());
+//app.use(passport.session());
 }));
 app.use('/', routes)
 
