@@ -34,6 +34,7 @@ app.use(cookieParser())
 app.use(expressValidator())
 // dokumentacija za sessije
 app.use(session({
+  name: "kolacic",
   resave: true,
   saveUninitialized: true,
   secret: "secret123",
