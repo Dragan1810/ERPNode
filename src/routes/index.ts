@@ -10,4 +10,6 @@ router.post('/register',
     UserController.ValidateRegister,
     UserController.PostRegister )
 
+router.get('/home', UserController.Home)
+
 export default router

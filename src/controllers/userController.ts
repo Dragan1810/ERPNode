@@ -35,4 +35,10 @@ export const PostRegister = async (req:Request, res:Response, next:NextFunction)
     user.save(err => {
         if(err) return
     })
+    res.redirect('/home')
+}
+export const Home = (req:Request, res:Response) => {
+    res.sendFile('home.html', {
+        root: 'client'
+    })
 }
