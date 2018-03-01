@@ -1,6 +1,5 @@
 import * as passport from "passport";
 import * as passportLocal from "passport-local";
-import _ from "lodash";
 
 // import { User, UserType } from '../models/User';
 import { default as User } from "../models/UserModel";
@@ -17,8 +16,6 @@ passport.deserializeUser((id, done) => {
     done(err, user);
   });
 });
-
-
 /**
  * Sign in using Email and Password.
  */
@@ -37,8 +34,6 @@ passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, don
     });
   });
 }));
-
-
 /**
  * OAuth Strategy Overview
  *
@@ -66,12 +61,13 @@ export let isAuthenticated = (req: Request, res: Response, next: NextFunction) =
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect("/login");
+  res.redirect("/");
 };
 
 /**
  * Authorization Required middleware.
  */
+/*
 export let isAuthorized = (req: Request, res: Response, next: NextFunction) => {
   const provider = req.path.split("/").slice(-1)[0];
 
@@ -81,3 +77,5 @@ export let isAuthorized = (req: Request, res: Response, next: NextFunction) => {
     res.redirect(`/auth/${provider}`);
   }
 };
+
+*/
