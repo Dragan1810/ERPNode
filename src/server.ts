@@ -8,6 +8,7 @@ import * as mongoose from 'mongoose'
 import * as mongo from "connect-mongo";
 import * as expressValidator from 'express-validator'
 import * as session from 'express-session'
+import * as passport from 'passport'
 import { Request, Response, Application } from 'express'
 import routes from './routes/index'
 
@@ -42,10 +43,9 @@ app.use(session({
     url: "mongodb://127.0.0.1/node-boilerplate",
     autoReconnect: true
   })
-
-//app.use(passport.initialize());
-//app.use(passport.session());
-}));
+}))
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/', routes)
 
 app.listen(3000, () => console.log('PORT 3000! RUNING!'))
