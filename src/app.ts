@@ -5,13 +5,12 @@ import bodyParser from "body-parser";
 import logger from "morgan";
 import lusca from "lusca";
 import dotenv from "dotenv";
-import mongo from "connect-mongo";
+import * as mongo from "connect-mongo";
 import flash from "express-flash";
 import path from "path";
-import mongoose from "mongoose";
+import * as mongoose from "mongoose";
 import passport from "passport";
 import expressValidator from "express-validator";
-import bluebird from "bluebird";
 
 const MongoStore = mongo(session);
 
@@ -33,8 +32,8 @@ const app = express();
 
 // Connect to MongoDB
 const mongoUrl = process.env.MONGOLAB_URI;
-(<any>mongoose).Promise = bluebird;
-mongoose.connect(mongoUrl, {useMongoClient: true}).then(
+(<any>mongoose).Promise = global.Promise;
+mongoose.connect(mongoUrl).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
   console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);

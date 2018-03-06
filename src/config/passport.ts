@@ -67,7 +67,7 @@ passport.use(new FacebookStrategy({
   callbackURL: "/auth/facebook/callback",
   profileFields: ["name", "email", "link", "locale", "timezone"],
   passReqToCallback: true
-}, (req: any, accessToken, refreshToken, profile, done) => {
+}, (req: any, accessToken: any, refreshToken, profile, done) => {
   if (req.user) {
     User.findOne({ facebook: profile.id }, (err, existingUser) => {
       if (err) { return done(err); }
