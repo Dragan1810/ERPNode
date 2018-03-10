@@ -5,15 +5,14 @@ import bodyParser from "body-parser";
 import logger from "morgan";
 import lusca from "lusca";
 import dotenv from "dotenv";
-import * as mongo from "connect-mongo";
+import mongo from 'connect-mongo'
 import flash from "express-flash";
 import path from "path";
 import * as mongoose from "mongoose";
 import passport from "passport";
 import expressValidator from "express-validator";
 
-const MongoStore = mongo(session);
-
+const MongoStore = mongo(session)
 // Load environment variables from .env file, where API keys and passwords are configured
 dotenv.config({ path: ".env.example" });
 
