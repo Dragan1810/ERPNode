@@ -2,7 +2,7 @@ import * as express from "express";
 import * as session from "express-session";
 import * as bodyParser from "body-parser";
 import * as logger from "morgan";
-import * as lusca from "lusca";
+//import * as lusca from "lusca";
 import * as dotenv from "dotenv";
 import * as mongo from 'connect-mongo'
 import * as flash from "express-flash";
@@ -59,8 +59,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use(lusca.xframe("SAMEORIGIN"));
-app.use(lusca.xssProtection(true));
+//app.use(lusca.xframe("SAMEORIGIN"));
+//app.use(lusca.xssProtection(true));
 app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
@@ -114,9 +114,6 @@ app.get("/api/facebook", passportConfig.isAuthenticated, passportConfig.isAuthor
 /**
  * OAuth authentication routes. (Sign in)
  */
-app.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }));
-app.get("/auth/facebook/callback", passport.authenticate("facebook", { failureRedirect: "/login" }), (req, res) => {
-  res.redirect(req.session.returnTo || "/");
-});
+
 
 export default app;
