@@ -1,5 +1,5 @@
-import bcrypt from "bcrypt-nodejs";
-import crypto from "crypto";
+import * as bcrypt from "bcrypt-nodejs";
+import * as crypto from "crypto";
 import * as mongoose from "mongoose";
 
 export type UserModel = mongoose.Document & {

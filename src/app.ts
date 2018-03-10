@@ -1,16 +1,15 @@
-import express from "express";
-import compression from "compression";  // compresses requests
-import session from "express-session";
-import bodyParser from "body-parser";
-import logger from "morgan";
-import lusca from "lusca";
-import dotenv from "dotenv";
-import mongo from 'connect-mongo'
-import flash from "express-flash";
-import path from "path";
+import * as express from "express";
+import * as session from "express-session";
+import * as bodyParser from "body-parser";
+import * as logger from "morgan";
+import * as lusca from "lusca";
+import * as dotenv from "dotenv";
+import * as mongo from 'connect-mongo'
+import * as flash from "express-flash";
+import * as path from "path";
 import * as mongoose from "mongoose";
-import passport from "passport";
-import expressValidator from "express-validator";
+import * as passport from "passport";
+import * as expressValidator from "express-validator";
 
 const MongoStore = mongo(session)
 // Load environment variables from .env file, where API keys and passwords are configured
@@ -34,6 +33,7 @@ const mongoUrl = process.env.MONGOLAB_URI;
 (<any>mongoose).Promise = global.Promise;
 mongoose.connect(mongoUrl).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
+  err => console.log(err)
 ).catch(err => {
   console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
   // process.exit();
@@ -43,7 +43,6 @@ mongoose.connect(mongoUrl).then(
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "pug");
-app.use(compression());
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
